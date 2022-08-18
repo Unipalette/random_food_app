@@ -21,27 +21,35 @@ function App() {
     "우동",
     "김밥",
     "잔치국수",
-    "전",
+    "해물파전",
     "닭꼬치",
     "닭갈비",
     "찜닭",
     "부대찌개",
   ];
-  const [num, setNum] = useState(0);
+  const [num, setNum] = useState();
+  const [show, setShow] = useState("none");
   function randomNum(n) {
     return Math.ceil(Math.random() * n);
   }
   const btnClickHandle = () => {
     const nextNum = randomNum(foods.length - 1);
     setNum(nextNum);
+    setShow("show");
   };
-
+  const resetClickHandle = () => {
+    setShow("none");
+  };
   return (
     <div className="App">
-      <h1>오늘 뭐 먹지?</h1>
-      <Button onClick={btnClickHandle} />
-      <img src={zzal} alt="뭐먹을지 열심히 고민하는 얼굴 짤" />
-      <Food num={num} foods={foods} />
+      <div className="box">
+        <h1>오늘 뭐 먹지?</h1>
+        <Button onClick={btnClickHandle} />
+        <img src={zzal} alt="뭐먹을지 열심히 고민하는 얼굴 짤" />
+      </div>
+      {show === "none" ? null : (
+        <Food onClick={resetClickHandle} num={num} foods={foods} />
+      )}
     </div>
   );
 }
